@@ -1,0 +1,238 @@
+/* .timesheet {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  .task {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .task.completed {
+    background-color: #e0f7fa; /* Light blue for completed tasks  
+  }*/
+  
+  /* .task button {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  .task button:hover {
+    background-color: #0056b3;
+  }
+  
+  button {
+    margin-top: 10px;
+    padding: 8px 16px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+   */
+  
+   
+   /* @import url('../node_modules/@fortawesome/fontawesome-free/css/all.css'); */
+
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f7f9fc;
+  color: #333;
+}
+
+.timesheet {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+  background: #ffffff;
+  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+  border-radius: 10px;
+  margin-top: 50px;
+}
+
+h2 {
+  text-align: center;
+  color: #333;
+}
+
+.task-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.task-form input,
+.task-form select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.task-form label {
+  margin-top: 10px;
+  color: #555;
+}
+
+.task-form .submit-button,
+.task-form .cancel-button {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #6ca2ac;
+  color: white;
+  cursor: pointer;
+}
+
+.task-form .cancel-button {
+  background-color: #e74c3c;
+}
+
+.task-form .submit-button:hover,
+.task-form .cancel-button:hover {
+  background-color: #555;
+}
+
+.task-list {
+  margin-top: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+  color: #333;
+}
+
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+tr:hover {
+  background-color: #f1f1f1;
+}
+
+.task.completed {
+  background-color: #e0f7e0;
+}
+
+.task-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.task-actions button {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: transparent;
+  color: #333;
+}
+
+.task-actions .toggle-button {
+  color: #6ca2ac;
+}
+.collect {
+  margin-top: 5px;
+  padding: 8px;
+  margin-left: 40px;
+  width: 220px;
+  height: 35px;  
+  background-color: fwhite;
+  color: #131415;
+  font-family: Inter,sans-serif;
+  font-weight: 400;
+  display:flex;
+  align-items:baseline;
+  border: 2px solid #6ca2ac;
+  background: transparent;
+  border-radius: 4px;
+} 
+
+.task-actions .edit-button {
+  color: #f39c12;
+}
+
+.task-actions .delete-button {
+  color: #e74c3c;
+}
+
+.task-actions button:hover {
+  color: #555;
+}
+
+.alert-button {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #6ca2ac;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.alert-button:hover {
+  background-color: #555;
+}
+
+@media (max-width: 768px) {
+  .task-form {
+    flex-direction: column;
+  }
+
+  .task-list table, .task-list thead, .task-list tbody, .task-list th, .task-list td, .task-list tr {
+    display: block;
+  }
+
+  .task-list thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+
+  .task-list tr {
+    margin: 0 0 1rem 0;
+  }
+
+  .task-list td {
+    border: none;
+    position: relative;
+    padding-left: 50%;
+    text-align: right;
+  }
+
+  .task-list td:before {
+    position: absolute;
+    top: 0;
+    left: 6px;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+    text-align: left;
+    content: attr(data-label);
+  }
+}

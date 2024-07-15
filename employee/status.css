@@ -1,0 +1,38 @@
+/* src/components/status.css */
+.stats-cards {
+    display: flex;
+    justify-content: space-between;
+    margin:  0px ; 
+    flex-wrap: wrap;
+    background-color: #ffffff;
+  } 
+  .card {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    flex: 1 1 calc(25% - 20px);
+    margin: 10px;
+    box-sizing: border-box;
+  } 
+  .card h2 {
+    margin: 0;
+    font-size: 18px;
+  } 
+  .card p {
+    margin: 10px 0 0;
+    font-size: 24px;
+    font-weight: bold;
+  } 
+  @media (max-width: 768px) {
+    .card {
+      flex: 1 1 calc(50% - 20px);
+    }
+  } 
+  @media (max-width: 480px) {
+    .card {
+      flex: 1 1 100%;
+    }
+  }
+  

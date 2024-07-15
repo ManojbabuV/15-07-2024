@@ -1,0 +1,63 @@
+.task-list {
+    width: 100%;
+    overflow-x: auto;
+  }
+  
+  .task-list table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  .task-list th,
+  .task-list td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+  }
+  
+  .task-list th {
+    background-color: #f2f2f2;
+  }
+  
+  .task {
+    transition: background-color 0.3s ease;
+  }
+  
+  .task.completed {
+    background-color: #d3ffd3;
+  }
+  
+  .task-actions {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .task-actions button {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .task-actions .toggle-button .fa,
+  .task-actions .edit-button .fa,
+  .task-actions .delete-button .fa {
+    font-size: 16px;
+  }
+  
+  .task-actions .toggle-button .fa-check {
+    color: green;
+  }
+  
+  .task-actions .toggle-button .fa-times {
+    color: red;
+  }
+  
+  .task-actions .edit-button .fa {
+    color: #ff9800;
+  }
+  
+  .task-actions .delete-button .fa {
+    color: #f44336;
+  }
+  

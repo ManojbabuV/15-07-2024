@@ -1,0 +1,113 @@
+/* src/components/EmployeeList.css */
+  /* .employee-list {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 80px;
+    margin-right: 140px;
+    gap: 30px;
+    
+    background-color: #ffffff; 
+ }   */
+
+/* 
+ .employee-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%; 
+  gap: 20px;  
+}
+
+
+
+  */
+
+
+
+
+  /* employeel.css */
+
+.employee-list {
+  display: flex;
+  flex-wrap: wrap;
+  /* justify-content: space-around; Adjust alignment as needed */
+}
+
+.employee-list table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px; /* Adjust spacing */
+}
+
+.employee-list th,
+.employee-list td {
+  padding: 10px;
+  text-align: left;
+}
+
+.employee-list th {
+  background-color: #f2f2f2;
+}
+
+.employee-list tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.employee-list tr:hover {
+  background-color: #ddd;
+}
+
+.employee-list input[type="text"] {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.button-27 {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+@media (max-width: 768px) {
+  .employee-list table {
+    font-size: 14px; /* Adjust font size for smaller screens */
+  }
+}
+/* employee.css */
+
+.table-container {
+  max-height: 400px; /* Adjust the maximum height as per your requirement */
+  overflow-y: auto; /* Enable vertical scroll */
+  border: 1px solid #ffffff; /* Optional: Add border for aesthetic */
+  border-radius: 8px; /* Optional: Add border radius for aesthetic */
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd; /* Optional: Add border between rows */
+}
+
+th {
+  background-color: #f2f2f2;
+}
+ 
+.input-field {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}

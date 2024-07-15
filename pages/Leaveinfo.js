@@ -1,0 +1,1191 @@
+ //original code
+// import React, { useState, useEffect } from 'react';
+// import './styles.css';
+// import Sidebar from '../components/Sidebar';
+// import plus from '../assets/plus.png';
+// import { useNavigate } from 'react-router-dom';
+// import Axios from 'axios';
+// import ProtectedRoute from '../Protected.js';
+
+// const LeaveInfo = () => {
+//   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+//   const [employees, setEmployees] = useState([]);
+//   const [newstatus, setStatus] = useState('');
+//   const [newrowId, setEditRowId] = useState(null);
+//   const [sickLeaveCount, setSickl] = useState(0);
+//   const [sick, setSick] = useState([]);
+//   const [casual, setCasual] = useState(0);
+//   const [casuall, setCasuall] = useState([]);
+//   const [paid, setPaid] = useState(0);
+//   const [paidedl, setPaidedl] = useState([]); 
+//   const [role, setUserRole] = useState(() => {
+//     return sessionStorage.getItem('userRole') || '';
+//   });
+//   const [error, setError] = useState(null);
+//   const navigate = useNavigate();
+
+//   useEffect(() => {
+//     const fetchUserRole = async () => {
+//       try {
+//         const response = await Axios.get('http://localhost:3015/getUserRole');
+//         setUserRole(response.data.role);
+//       } catch (error) {
+//         console.error('Error fetching user role:', error);
+//         setError('Error fetching user role. Please try again later.');
+//       }
+//     };
+//     fetchUserRole();
+//   }, []);
+
+//   useEffect(() => {
+//     const fetchRecords = async () => {
+//       try {
+//         const response = await Axios.get('http://localhost:3015/getRecords');
+//         setEmployees(response.data.employees);
+//       } catch (error) {
+//         console.error('Error fetching data:', error);
+//         setError('Error fetching data. Please try again later.');
+//       }
+//     };
+//     fetchRecords();
+//   }, []);
+
+//   const handleSave = async (id) => {
+//     try {
+//       await Axios.put(`http://localhost:3015/update/${id}`, {
+//         newStatus: newstatus,
+//       });
+//       setEmployees((prevEmployees) =>
+//         prevEmployees.map((employee) =>
+//           employee.id === id ? { ...employee, lev_status: newstatus } : employee
+//         )
+//       );
+//       setEditRowId(null);
+//       setStatus('');
+//       alert('Status updated successfully');
+//     } catch (error) {
+//       console.error('Error updating status:', error);
+//       alert('An error occurred, please try again later');
+//     }
+//   };
+//   const handleEdit = (id, status) => {
+//     setEditRowId(id);
+//     setStatus(status);
+//   };
+// function leave(){
+//   navigate('/leave')
+// }
+ 
+
+//   const handleDelete = async (id) => {
+//     try {
+//       await Axios.delete(`http://localhost:3015/delete/${id}`);
+//       setEmployees((prevEmployees) =>
+//         prevEmployees.filter((employee) => employee.id !== id)
+//       );
+//       alert('Employee record deleted successfully');
+//     } catch (error) {
+//       console.error('Error deleting employee record:', error);
+//       alert('An error occurred, please try again later');
+//     }
+//   };
+
+//   const viewLeaveHistory = (employeeId) => {
+//     // Implement navigation or modal to show leave history for the employeeId
+//     navigate(`/leavehis/${employeeId}`);
+//   };
+
+//   useEffect(() => {
+//     document.body.style.backgroundColor = 'white';
+
+//     return () => {
+//       document.body.style.backgroundColor = null;
+//     };
+//   }, []);
+
+//   useEffect(() => {
+//     async function fetchTotal() {
+//       try {
+//         const response = await Axios.get('http://localhost:3015/sickl');
+//         setSickl(response.data.sickLeaveCount);
+//         setSick(response.data.sick);
+//         console.log('Sick leave count data fetched successfully');
+//       } catch (error) {
+//         setError('An error occurred while fetching sick leave count.');
+//         console.error('Error fetching sick leave count:', error);
+//       }
+//     }
+//     fetchTotal();
+//   }, []);
+
+//   useEffect(() => {
+//     async function fetchCasualLeave() {
+//       try {
+//         const response = await Axios.get('http://localhost:3015/casul');
+//         setCasual(response.data.casual);
+//         setCasuall(response.data.casuall);
+//         console.log('Casual leave count data fetched successfully');
+//       } catch (error) {
+//         setError('An error occurred while fetching casual leave count.');
+//         console.error('Error fetching casual leave count:', error);
+//       }
+//     }
+//     fetchCasualLeave();
+//   }, []);
+
+//   useEffect(() => {
+//     async function fetchPaidLeave() {
+//       try {
+//         const response = await Axios.get('http://localhost:3015/paided');
+//         setPaid(response.data.paid);
+//         setPaidedl(response.data.paidedl);
+//         console.log('Paid leave count data fetched successfully');
+//       } catch (error) {
+//         setError('An error occurred while fetching paid leave count.');
+//         console.error('Error fetching paid leave count:', error);
+//       }
+//     }
+//     fetchPaidLeave();
+//   }, []);
+ 
+//   return (
+//     <div className="app">
+//       <Sidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
+//       <div className={`main-content ${isSidebarOpen ? 'sidebar-open' : 'sidebar-closed'}`}>
+//         <div className="leave-requests">
+//           <h2 className="test">Leaves</h2>
+//           <div className="leave-summary">
+//             <div className="summary-card">
+//               <h3>12</h3>
+//               <p>Total Available Leaves</p>
+//             </div>
+//             <div className="summary-card2">
+//               <h3>{sick.map((sicked) => (
+//                 <div key={sicked.id}>
+//                   <h3>{sicked.sickLeaveCount}</h3>
+//                 </div>
+//               ))}</h3>
+//               <p>Total Sick Leaves</p>
+//             </div>
+//             <div className="summary-card3">
+//               <h3>{casuall.map((casuled) => (
+//                 <div key={casuled.id}>
+//                   <h3>{casuled.casual}</h3>
+//                 </div>
+//               ))}</h3>
+//               <p>Total Casual Leaves</p>
+//             </div>
+//             <div className="summary-card4">
+//               <h3>{paidedl.map((casuled) => (
+//                 <div key={casuled.id}>
+//                   <h3>{casuled.paid}</h3>
+//                 </div>
+//               ))}</h3>
+//               <p>Total Paid Earned Leaves</p>
+//             </div>
+//           </div>
+//           <div className="set">
+//             <h2 className="test1">All Leave Requests</h2>
+//             <button type="button" onClick={leave} className="button-27" style={{ alignItems: "center", display: "flex", width: "155px", marginLeft: "0px", marginTop: "0px" }}>
+//               <img src={plus} alt="Apply Leave" height="20px" width="20px" style={{ marginLeft: "2px" }} />
+//               Apply Leave
+//             </button>
+          
+//           </div>
+//           <table>
+//             <thead>
+//               <tr>
+//                 <th>Leave Type</th>
+//                 <th>Employee ID</th>
+//                 <th>From Date</th>
+//                 <th>To Date</th>
+//                 <th>Leave Reason</th>
+//                 <th>Leave Approved By</th>
+//                 <th>Leave Status</th>
+//                 {role === 'admin' && <th>Action</th>}
+//                 {role === 'manager' && <th>Action</th>}
+//               </tr>
+//             </thead>
+//             <tbody>
+//   {employees.map((employee) => (
+//     <tr key={employee.id}>
+//       <td>{employee.leave_type}</td>
+//       <td>{employee.employee_id}</td>
+//       <td>{employee.start_date}</td>
+//       <td>{employee.end_date}</td>
+//       <td>{employee.lev_reason}</td>
+//       <td>{employee.lev_approve}</td>
+//       <td>
+//         {newrowId === employee.id ? (
+//           <input
+//             type="text"
+//             value={newstatus}
+//             onChange={(e) => setStatus(e.target.value)}
+//           />
+//         ) : (
+//           employee.lev_status
+//         )}
+//       </td>
+//       {role === 'manager'  && (
+//         <React.Fragment>
+//           <td>
+//             {newrowId === employee.id ? (
+//               <button style={{ width: "30px" }} className="button-27" onClick={() => handleSave(employee.id)}>
+//                 <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+//                   <i className="fas fa-save"></i>
+//                 </div>
+//               </button>
+//             ) : (
+//               <button style={{ width: "30px" }} className="button-27" onClick={() => handleEdit(employee.id, employee.lev_status)}>
+//                 <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+//                   <i className="fas fa-edit"></i>
+//                 </div>
+//               </button>
+//             )}
+    
+      
+//             <button style={{ width: "30px" }} onClick={() => handleDelete(employee.id)} className='button-27'>
+//               <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+//                 <i className="fas fa-trash"></i>
+//               </div>
+//             </button>
+//           </td>
+//         </React.Fragment>)}
+//       {role === 'admin'  && (
+//         <React.Fragment>
+//           <td>
+//             {newrowId === employee.id ? (
+//               <button style={{ width: "30px" }} className="button-27" onClick={() => handleSave(employee.id)}>
+//                 <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+//                   <i className="fas fa-save"></i>
+//                 </div>
+//               </button>
+//             ) : (
+//               <button style={{ width: "30px" }} className="button-27" onClick={() => handleEdit(employee.id, employee.lev_status)}>
+//                 <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+//                   <i className="fas fa-edit"></i>
+//                 </div>
+//               </button>
+//             )}
+    
+      
+//             <button style={{ width: "30px" }} onClick={() => handleDelete(employee.id)} className='button-27'>
+//               <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+//                 <i className="fas fa-trash"></i>
+//               </div>
+//             </button>
+//           </td>
+//         </React.Fragment>
+//       )}
+//     </tr>
+//   ))}
+// </tbody>
+
+//           </table>
+
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default LeaveInfo;
+ 
+
+
+
+
+//test case:
+
+// import React, { useState, useEffect } from 'react';
+// import './styles.css';
+// import Sidebar from '../components/Sidebar';
+// import plus from '../assets/plus.png';
+// import { useNavigate } from 'react-router-dom';
+// import Axios from 'axios';
+// import LeaveHistory from './Leavehis'; // Import the LeaveHistory component
+// import socketIOClient from 'socket.io-client';
+// const socket = socketIOClient('http://localhost:3015'); // Replace with your server URL
+
+// const LeaveInfo = () => {
+//   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+//   const [employees, setEmployees] = useState([]);
+//   const [newstatus, setStatus] = useState('');
+//   const [newrowId, setEditRowId] = useState(null);
+//   const [sickleave, setSickl] = useState(0);
+//   const [sickl, setSick] = useState([]);
+//   const [casual, setCasual] = useState(0);
+//   const [casuall, setCasuall] = useState([]);
+//   const [paid, setPaid] = useState(0);
+//   const [paidedl, setPaidedl] = useState([]);
+//   const [modalIsOpen, setModalIsOpen] = useState(false);
+//   const [role, setUserRole] = useState(() => {
+//     return sessionStorage.getItem('userRole') || '';
+//   });
+//   const [error, setError] = useState(null);
+//   const navigate = useNavigate();
+ 
+//   useEffect(() => {
+//     const fetchUserRole = async () => {
+//       try {
+//         const response = await Axios.get('http://localhost:3015/getUserRole');
+//         setUserRole(response.data.role); 
+//         const loggedInUser = response.data.username;  
+//         if (loggedInUser === 'Balaji' || loggedInUser === 'Rahul' || loggedInUser === 'Gokul') {
+//           alert(`Welcome ${loggedInUser}! You have logged in.`);
+//         }
+//       } catch (error) {
+//         console.error('Error fetching user role:', error);
+//         setError('Error fetching user role. Please try again later.');
+//       }
+//     };
+//     fetchUserRole();
+//   }, []);
+//   useEffect(() => {
+//     const fetchRecords = async () => {
+//       try {
+//         const response = await Axios.get('http://localhost:3015/getRecords');
+//         setEmployees(response.data.employees);
+//       } catch (error) {
+//         console.error('Error fetching data:', error);
+//         setError('Error fetching data. Please try again later.');
+//       }
+//     };
+//     fetchRecords();
+//   }, []); 
+//   const handleSave = async (id) => {
+//     try {
+//       await Axios.put(`http://localhost:3015/update/${id}`, {
+//         newStatus: newstatus,
+//       });
+//       setEmployees((prevEmployees) =>
+//         prevEmployees.map((employee) =>
+//           employee.id === id ? { ...employee, lev_status: newstatus } : employee
+//         )
+//       );
+//       setEditRowId(null);
+//       setStatus('');
+//       alert('Status updated successfully');
+//       socket.emit('leaveStatusUpdate', { approver: role, status: newstatus });
+//     } catch (error) {
+//       console.error('Error updating status:', error);
+//       alert('An error occurred, please try again later');
+//     }
+//   }; 
+//   const handleEdit = (id, status) => {
+//     setEditRowId(id);
+//     setStatus(status);
+//   }; 
+//   const handleDelete = async (id) => {
+//     try {
+//       await Axios.delete(`http://localhost:3015/delete/${id}`);
+//       setEmployees((prevEmployees) =>
+//         prevEmployees.filter((employee) => employee.id !== id)
+//       );
+//       alert('Employee record deleted successfully');
+//     } catch (error) {
+//       console.error('Error deleting employee record:', error);
+//       alert('An error occurred, please try again later');
+//     }
+//   }; 
+//   useEffect(() => {
+//     document.body.style.backgroundColor = 'white';
+//     return () => {
+//       document.body.style.backgroundColor = null;
+//     };
+//   }, []); 
+//   useEffect(() => {
+//     async function fetchTotal() {
+//       try {
+//         const response = await Axios.get('http://localhost:3015/sickleave');
+//         setSickl(response.data.sickleave);
+//         setSick(response.data.sickl);
+//         console.log('Sick leave count data fetched successfully');
+//       } catch (error) {
+//         setError('An error occurred while fetching sick leave count.');
+//         console.error('Error fetching sick leave count:', error);
+//       }
+//     }
+//     fetchTotal();
+//   }, []); 
+//   useEffect(() => {
+//     async function fetchCasualLeave() {
+//       try {
+//         const response = await Axios.get('http://localhost:3015/casul');
+//         setCasual(response.data.casual);
+//         setCasuall(response.data.casuall);
+//         console.log('Casual leave count data fetched successfully');
+//       } catch (error) {
+//         setError('An error occurred while fetching casual leave count.');
+//         console.error('Error fetching casual leave count:', error);
+//       }
+//     }
+//     fetchCasualLeave();
+//   }, []); 
+//   useEffect(() => {
+//     async function fetchPaidLeave() {
+//       try {
+//         const response = await Axios.get('http://localhost:3015/paided');
+//         setPaid(response.data.paid);
+//         setPaidedl(response.data.paidedl);
+//         console.log('Paid leave count data fetched successfully');
+//       } catch (error) {
+//         setError('An error occurred while fetching paid leave count.');
+//         console.error('Error fetching paid leave count:', error);
+//       }
+//     }
+//     fetchPaidLeave();
+//   }, []); 
+//   const openModal = () => {
+//     setModalIsOpen(true);
+//   }; 
+//   const closeModal = () => {
+//     setModalIsOpen(false);
+//   }; 
+//   return (
+//     <div className="app">
+//       <Sidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
+//       <div className={`main-content ${isSidebarOpen ? 'sidebar-open' : 'sidebar-closed'}`}>
+//         <div className="leave-requests">
+//           <h2 className="test">Leaves</h2>
+//           <div className="leave-summary">
+//             <div className="summary-card">
+//               <h3>12</h3>
+//               <p>Total Available Leaves</p>
+//             </div>
+//             <div className="summary-card2">
+//               <h3>{sickl.map((sicked) => (
+//                 <div key={sicked.id}>
+//                   <h3>{sicked.sickleave}</h3>
+//                 </div>
+//               ))}</h3>
+//               <p>Total Approved Leaves</p>
+//             </div>
+//             <div className="summary-card3">
+//               <h3>{casuall.map((casuled) => (
+//                 <div key={casuled.id}>
+//                   <h3>{casuled.casual}</h3>
+//                 </div>
+//               ))}</h3>
+// <p>Total Rejected Leaves</p>
+// </div>
+// <div className="summary-card4">
+// <h3>{paidedl.map((casuled) => (
+// <div key={casuled.id}>
+// <h3>{casuled.paid}</h3>
+// </div>
+// ))}</h3>
+// <p>Total Paid/LOP Leaves</p>
+// </div>
+// </div>
+// <div className="set">
+// <h2 className="test1">All Leave Requests</h2><button className='button-27' style={{width:"200px",marginLeft:"0px"}} onClick={openModal}>View Leave History</button>
+// <button type="button" onClick={() => navigate('/leave')} className="button-27" style={{ alignItems: "center", display: "flex", width: "155px", marginLeft: "0px", marginTop: "0px" }}>
+// <img src={plus} alt="Apply Leave" height="20px" width="20px" style={{ marginLeft: "2px" }}  />
+// Apply Leave
+// </button> 
+// </div>
+// <table>
+// <thead>
+// <tr>
+// <th>Leave Type</th>
+// <th>Employee ID</th>
+// <th>From Date</th>
+// <th>To Date</th>
+// <th>Leave Reason</th>
+// <th>Leave Approved By</th>
+// <th>Leave Status</th>
+// {role === 'admin' && <th>Action</th>}
+// {role === 'manager' && <th>Action</th>}
+// </tr>
+// </thead>
+// <tbody>
+// {employees.map((employee) => (
+// <tr key={employee.id}>
+// <td>{employee.leave_type}</td>
+// <td>{employee.employee_id}</td>
+// <td>{employee.start_date}</td>
+// <td>{employee.end_date}</td>
+// <td>{employee.lev_reason}</td>
+// <td>{employee.lev_approve}</td>
+// <td>
+// {newrowId === employee.id ? (
+// <input
+// type="text"
+// value={newstatus}
+// onChange={(e) => setStatus(e.target.value)}
+// />
+// ) : (
+// employee.lev_status
+// )}
+// </td>
+// {(role === 'manager' || role === 'admin') && (
+// <td>
+// {newrowId === employee.id ? (
+// <button style={{ width: "30px" }} className="button-27" onClick={() => handleSave(employee.id)}>
+// <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+// <i className="fas fa-save"></i>
+// </div>
+// </button>
+// ) : (
+// <button style={{ width: "30px" }} className="button-27" onClick={() => handleEdit(employee.id, employee.lev_status)}>
+// <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+// <i className="fas fa-edit"></i>
+// </div>
+// </button>
+// )}
+// <button style={{ width: "30px" }} onClick={() => handleDelete(employee.id)} className='button-27'>
+// <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+// <i className="fas fa-trash"></i>
+// </div>
+// </button>
+// </td>
+// )}
+// </tr>
+// ))}
+// </tbody>
+// </table>
+// </div>
+// </div>
+// <LeaveHistory isOpen={modalIsOpen} onRequestClose={closeModal} />
+// </div>
+// );
+// }; 
+// export default LeaveInfo;
+   
+
+
+
+
+
+
+
+
+
+// import React, { useState, useEffect } from 'react';
+// import './styles.css';
+// import Sidebar from '../components/Sidebar';
+// import plus from '../assets/plus.png';
+// import { useNavigate } from 'react-router-dom';
+// import Axios from 'axios';
+// import LeaveHistory from './Leavehis';
+// import socketIOClient from 'socket.io-client';
+
+// const socket = socketIOClient('http://localhost:3015');
+
+// const LeaveInfo = () => {
+//   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+//   const [employees, setEmployees] = useState([]);
+//   const [newstatus, setStatus] = useState('');
+//   const [newrowId, setEditRowId] = useState(null);
+//   const [sickleave, setSickl] = useState(0);
+//   const [sickl, setSick] = useState([]);
+//   const [casual, setCasual] = useState(0);
+//   const [casuall, setCasuall] = useState([]);
+//   const [paid, setPaid] = useState(0);
+//   const [paidedl, setPaidedl] = useState([]);
+//   const [modalIsOpen, setModalIsOpen] = useState(false);
+//   const [role, setUserRole] = useState(() => {
+//     return sessionStorage.getItem('userRole') || '';
+//   });
+//   const [error, setError] = useState(null);
+//   const navigate = useNavigate();
+
+//   useEffect(() => {
+//     const fetchUserRole = async () => {
+//       try {
+//         const response = await Axios.get('http://localhost:3015/getUserRole');
+//         setUserRole(response.data.role);
+//         const loggedInUser = response.data.username;
+//         if (loggedInUser === 'Balaji' || loggedInUser === 'Rahul' || loggedInUser === 'Gokul') {
+//           alert(`Welcome ${loggedInUser}! You have logged in.`);
+//         }
+//       } catch (error) {
+//         console.error('Error fetching user role:', error);
+//         setError('Error fetching user role. Please try again later.');
+//       }
+//     };
+//     fetchUserRole();
+//   }, []);
+
+//   useEffect(() => {
+//     const fetchRecords = async () => {
+//       try {
+//         const response = await Axios.get('http://localhost:3015/getRecords');
+//         setEmployees(response.data.employees);
+//       } catch (error) {
+//         console.error('Error fetching data:', error);
+//         setError('Error fetching data. Please try again later.');
+//       }
+//     };
+//     fetchRecords();
+//   }, []);
+
+//   const handleSave = async (id) => {
+//     try {
+//       await Axios.put(`http://localhost:3015/update/${id}`, {
+//         newStatus: newstatus,
+//       });
+//       setEmployees((prevEmployees) =>
+//         prevEmployees.map((employee) =>
+//           employee.id === id ? { ...employee, lev_status: newstatus } : employee
+//         )
+//       );
+//       setEditRowId(null);
+//       setStatus('');
+//       alert('Status updated successfully');
+//       socket.emit('leaveStatusUpdate', { approver: role, status: newstatus });
+//     } catch (error) {
+//       console.error('Error updating status:', error);
+//       alert('An error occurred, please try again later');
+//     }
+//   };
+
+//   const handleEdit = (id, status) => {
+//     setEditRowId(id);
+//     setStatus(status);
+//   };
+
+//   const handleDelete = async (id) => {
+//     try {
+//       await Axios.delete(`http://localhost:3015/delete/${id}`);
+//       setEmployees((prevEmployees) =>
+//         prevEmployees.filter((employee) => employee.id !== id)
+//       );
+//       alert('Employee record deleted successfully');
+//     } catch (error) {
+//       console.error('Error deleting employee record:', error);
+//       alert('An error occurred, please try again later');
+//     }
+//   };
+
+//   useEffect(() => {
+//     document.body.style.backgroundColor = 'white';
+//     return () => {
+//       document.body.style.backgroundColor = null;
+//     };
+//   }, []);
+
+//   useEffect(() => {
+//     async function fetchTotal() {
+//       try {
+//         const response = await Axios.get('http://localhost:3015/sickleave');
+//         setSickl(response.data.sickleave);
+//         setSick(response.data.sickl);
+//         console.log('Sick leave count data fetched successfully');
+//       } catch (error) {
+//         setError('An error occurred while fetching sick leave count.');
+//         console.error('Error fetching sick leave count:', error);
+//       }
+//     }
+//     fetchTotal();
+//   }, []);
+
+//   useEffect(() => {
+//     async function fetchCasualLeave() {
+//       try {
+//         const response = await Axios.get('http://localhost:3015/casul');
+//         setCasual(response.data.casual);
+//         setCasuall(response.data.casuall);
+//         console.log('Casual leave count data fetched successfully');
+//       } catch (error) {
+//         setError('An error occurred while fetching casual leave count.');
+//         console.error('Error fetching casual leave count:', error);
+//       }
+//     }
+//     fetchCasualLeave();
+//   }, []);
+
+//   useEffect(() => {
+//     async function fetchPaidLeave() {
+//       try {
+//         const response = await Axios.get('http://localhost:3015/paided');
+//         setPaid(response.data.paid);
+//         setPaidedl(response.data.paidedl);
+//         console.log('Paid leave count data fetched successfully');
+//       } catch (error) {
+//         setError('An error occurred while fetching paid leave count.');
+//         console.error('Error fetching paid leave count:', error);
+//       }
+//     }
+//     fetchPaidLeave();
+//   }, []);
+
+//   const openModal = () => {
+//     setModalIsOpen(true);
+//   };
+
+//   const closeModal = () => {
+//     setModalIsOpen(false);
+//   };
+
+//   return (
+//     <div className="app">
+//       <Sidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
+//       <div className={`main-content ${isSidebarOpen ? 'sidebar-open' : 'sidebar-closed'}`}>
+//         <div className="leave-requests">
+//           <h2 className="test">Leaves</h2>
+//           <div className="leave-summary">
+//             <div className="summary-card">
+//               <h3>12</h3>
+//               <p>Total Available Leaves</p>
+//             </div>
+//             <div className="summary-card2">
+//               <h3>
+//                 {sickl.map((sicked) => (
+//                   <div key={sicked.id}>
+//                     <h3>{sicked.sickleave}</h3>
+//                   </div>
+//                 ))}
+//               </h3>
+//               <p>Total Approved Leaves</p>
+//             </div>
+//             <div className="summary-card3">
+//               <h3>
+//                 {casuall.map((casuled) => (
+//                   <div key={casuled.id}>
+//                     <h3>{casuled.casual}</h3>
+//                   </div>
+//                 ))}
+//               </h3>
+//               <p>Total Rejected Leaves</p>
+//             </div>
+//             <div className="summary-card4">
+//               <h3>
+//                 {paidedl.map((casuled) => (
+//                   <div key={casuled.id}>
+//                     <h3>{casuled.paid}</h3>
+//                   </div>
+//                 ))}
+//               </h3>
+//               <p>Total Paid/LOP Leaves</p>
+//             </div>
+//           </div>
+//           <div className="set">
+//             <h2 className="test1">All Leave Requests</h2>
+//             <button
+//               className='button-27'
+//               style={{ width: "200px", marginLeft: "0px" }}
+//               onClick={openModal}
+//             >
+//               View Leave History
+//             </button>
+//             <button
+//               type="button"
+//               onClick={() => navigate('/leave')}
+//               className="button-27"
+//               style={{ alignItems: "center", display: "flex", width: "155px", marginLeft: "0px", marginTop: "0px" }}
+//             >
+//               <img src={plus} alt="Apply Leave" height="20px" width="20px" style={{ marginLeft: "2px" }} />
+//               Apply Leave
+//             </button>
+//           </div>
+//           <table>
+//             <thead>
+//               <tr>
+//                 <th>Leave Type</th>
+//                 <th>Employee ID</th>
+//                 <th>From Date</th>
+//                 <th>To Date</th>
+//                 <th>Leave Reason</th>
+//                 <th>Leave Approved By</th>
+//                 <th>Leave Status</th>
+//                 {role === 'admin' && <th>Action</th>}
+//                 {role === 'manager' && <th>Action</th>}
+//               </tr>
+//             </thead>
+//             <tbody>
+//               {employees.map((employee) => (
+//                 <tr key={employee.id}>
+//                   <td>{employee.leave_type}</td>
+//                   <td>{employee.employee_id}</td>
+//                   <td>{employee.start_date}</td>
+//                   <td>{employee.end_date}</td>
+//                   <td>{employee.lev_reason}</td>
+//                   <td>{employee.lev_approve}</td>
+//                   <td>
+//                     {newrowId === employee.id ? (
+//                       <input
+//                         type="text"
+//                         value={newstatus}
+//                         onChange={(e) => setStatus(e.target.value)}
+//                       />
+//                     ) : (
+//                       employee.lev_status
+//                     )}
+//                   </td>
+//                   {(role === 'manager' || role === 'admin') && (
+//                     <td>
+//                       {newrowId === employee.id ? (
+//                         <button
+//                           style={{ width: "30px" }}
+//                           className="button-27"
+//                           onClick={() => handleSave(employee.id)}
+//                         >
+//                           <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+//                             <i className="fas fa-save"></i>
+//                           </div>
+//                         </button>
+//                       ) : (
+//                         <button
+//                           style={{ width: "30px" }}
+//                           className="button-27"
+//                           onClick={() => handleEdit(employee.id, employee.lev_status)}
+//                         >
+//                           <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+//                             <i className="fas fa-edit"></i>
+//                           </div>
+//                         </button>
+//                       )}
+//                       <button
+//                         style={{ width: "30px" }}
+//                         onClick={() => handleDelete(employee.id)}
+//                         className='button-27'
+//                       >
+//                         <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+//                           <i className="fas fa-trash"></i>
+//                         </div>
+//                       </button>
+//                     </td>
+//                   )}
+//                 </tr>
+//               ))}
+//             </tbody>
+//           </table>
+//         </div>
+//       </div>
+//       <LeaveHistory isOpen={modalIsOpen} onRequestClose={closeModal} />
+//     </div>
+//   );
+// };
+
+// export default LeaveInfo;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import React, { useEffect, useState } from 'react';
+import './styles.css';
+import Sidebar from '../components/Sidebar';
+import plus from '../assets/plus.png';
+import { useNavigate } from 'react-router-dom';
+import Axios from 'axios';
+import LeaveHistory from './Leavehis';
+import socketIOClient from 'socket.io-client';
+import ProtectedRoute from '../Protected';
+
+const socket = socketIOClient('http://localhost:3015');
+
+const LeaveInfo = () => {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [employees, setEmployees] = useState([]);
+  const [newstatus, setStatus] = useState('');
+  const [newrowId, setEditRowId] = useState(null);
+  const [sickleave, setSickl] = useState(0);
+  const [sickl, setSick] = useState([]);
+  const [casual, setCasual] = useState(0);
+  const [casuall, setCasuall] = useState([]);
+  const [paid, setPaid] = useState(0);
+  const [paidedl, setPaidedl] = useState([]);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [role, setUserRole] = useState(() => {
+    return sessionStorage.getItem('userRole') || '';
+  });
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchUserRole = async () => {
+      try {
+        const response = await Axios.get('http://localhost:3015/getUserRole');
+        setUserRole(response.data.role);
+        const loggedInUser = response.data.username;
+        if (loggedInUser === 'Balaji' || loggedInUser === 'Rahul' || loggedInUser === 'Gokul') {
+          alert(`Welcome ${loggedInUser}! You have logged in.`);
+        }
+      } catch (error) {
+        console.error('Error fetching user role:', error);
+        setError('Error fetching user role. Please try again later.');
+      }
+    };
+    fetchUserRole();
+  }, []);
+
+  useEffect(() => {
+    const fetchRecords = async () => {
+      try {
+        const response = await Axios.get('http://localhost:3015/getRecords');
+        setEmployees(response.data.employees);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        setError('Error fetching data. Please try again later.');
+      }
+    };
+    fetchRecords();
+  }, []);
+
+   
+
+  const handleSave = async (id) => {
+    try {
+      await Axios.put(`http://localhost:3015/update/${id}`, {
+        newStatus: newstatus,
+      });
+      setEmployees((prevEmployees) =>
+        prevEmployees.map((employee) =>
+          employee.id === id ? { ...employee, lev_status: newstatus } : employee
+        )
+      );
+      setEditRowId(null);
+      setStatus('');
+      alert('Status updated successfully');
+      socket.emit('leaveStatusUpdate', { approver: role, status: newstatus });
+    } catch (error) {
+      console.error('Error updating status:', error);
+      alert('An error occurred, please try again later');
+    }
+  }; 
+  const handleEdit = (id, status) => {
+    setEditRowId(id);
+    setStatus(status);
+  }; 
+  const handleDelete = async (id) => {
+    try {
+      await Axios.delete(`http://localhost:3015/delete/${id}`);
+      setEmployees((prevEmployees) =>
+        prevEmployees.filter((employee) => employee.id !== id)
+      );
+      alert('Employee record deleted successfully');
+    } catch (error) {
+      console.error('Error deleting employee record:', error);
+      alert('An error occurred, please try again later');
+    }
+  }; 
+  useEffect(() => {
+    document.body.style.backgroundColor = 'white';
+    return () => {
+      document.body.style.backgroundColor = null;
+    };
+  }, []); 
+  useEffect(() => {
+    async function fetchTotal() {
+      try {
+        const response = await Axios.get('http://localhost:3015/sickleave');
+        setSickl(response.data.sickleave);
+        setSick(response.data.sickl);
+        console.log('Sick leave count data fetched successfully');
+      } catch (error) {
+        setError('An error occurred while fetching sick leave count.');
+        console.error('Error fetching sick leave count:', error);
+      }
+    }
+    fetchTotal();
+  }, []); 
+  useEffect(() => {
+    async function fetchCasualLeave() {
+      try {
+        const response = await Axios.get('http://localhost:3015/casul');
+        setCasual(response.data.casual);
+        setCasuall(response.data.casuall);
+        console.log('Casual leave count data fetched successfully');
+      } catch (error) {
+        setError('An error occurred while fetching casual leave count.');
+        console.error('Error fetching casual leave count:', error);
+      }
+    }
+    fetchCasualLeave();
+  }, []);
+
+  useEffect(() => {
+    async function fetchPaidLeave() {
+      try {
+        const response = await Axios.get('http://localhost:3015/paided');
+        setPaid(response.data.paid);
+        setPaidedl(response.data.paidedl);
+        console.log('Paid leave count data fetched successfully');
+      } catch (error) {
+        setError('An error occurred while fetching paid leave count.');
+        console.error('Error fetching paid leave count:', error);
+      }
+    }
+    fetchPaidLeave();
+  }, []);
+
+  const openModal = () => {
+    setModalIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+  };
+ 
+function checkLeaveRequestStatus() { 
+    let lev_status = "Pending";  
+    if (lev_status === "Pending") {
+        alert("An employee's leave request is pending. Please update the status");
+    }
+}
+useEffect(()=>{
+<ProtectedRoute>{role === 'manager' &&  
+checkLeaveRequestStatus() }</ProtectedRoute> 
+ 
+},[role])
+useEffect(()=>{
+<ProtectedRoute>{role ===  'admin' &&
+checkLeaveRequestStatus()}</ProtectedRoute> 
+ 
+},[role])
+  return (
+    <div className="app">
+      <Sidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
+      <div className={`main-content ${isSidebarOpen ? 'sidebar-open' : 'sidebar-closed'}`}>
+        <div className="leave-requests">
+          <h2 className="test">Leaves</h2>
+          <div className="leave-summary">
+            <div className="summary-card">
+              <h3>12</h3>
+              <p>Total Available Leaves</p>
+            </div>
+            <div className="summary-card2">
+              <h3>
+                {sickl.map((sicked) => (
+                  <div key={sicked.id}>
+                    <h3>{sicked.sickleave}</h3>
+                  </div>
+                ))}
+              </h3>
+              <p>Total Approved Leaves</p>
+            </div>
+            <div className="summary-card3">
+              <h3>
+                {casuall.map((casuled) => (
+                  <div key={casuled.id}>
+                    <h3>{casuled.casual}</h3>
+                  </div>
+                ))}
+              </h3>
+              <p>Total Rejected Leaves</p>
+            </div>
+            <div className="summary-card4">
+              <h3>
+                {paidedl.map((casuled) => (
+                  <div key={casuled.id}>
+                    <h3>{casuled.paid}</h3>
+                  </div>
+                ))}
+              </h3>
+              <p>Total Paid/LOP Leaves</p>
+            </div>
+          </div>
+          <div className="set">
+            <h2 className="test1">All Leave Requests</h2>
+            <button
+              className='button-27'
+              style={{ width: "200px", marginLeft: "0px" }}
+              onClick={openModal}
+            >
+              View Leave History
+            </button>
+            <button
+              type="button"
+              onClick={() => navigate('/leave')}
+              className="button-27"
+              style={{ alignItems: "center", display: "flex", width: "155px", marginLeft: "0px", marginTop: "0px" }}
+            >
+              <img src={plus} alt="Apply Leave" height="20px" width="20px" style={{ marginLeft: "2px" }} />
+              Apply Leave
+            </button>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Leave Type</th>
+                <th>Employee ID</th>
+                <th>From Date</th>
+                <th>To Date</th>
+                <th>Leave Reason</th>
+                <th>Leave Approved By</th>
+                <th>Leave Status</th>
+                {role === 'admin' && <th>Action</th>}
+                {role === 'manager' && <th>Action</th>}
+              </tr>
+            </thead>
+            <tbody>
+              {employees.map((employee) => (
+                <tr key={employee.id}>
+                  <td>{employee.leave_type}</td>
+                  <td>{employee.employee_id}</td>
+                  <td>{employee.start_date}</td>
+                  <td>{employee.end_date}</td>
+                  <td>{employee.lev_reason}</td>
+                  <td>{employee.lev_approve}</td>
+                  <td>
+                    {newrowId === employee.id ? (
+                      <input
+                        type="text"
+                        value={newstatus}
+                        onChange={(e) => setStatus(e.target.value)}
+                      />
+                    ) : (
+                      employee.lev_status
+                    )}
+                  </td>
+                  {(role === 'manager' || role === 'admin') && (
+                    <td>
+                      {newrowId === employee.id ? (
+                        <button
+                          style={{ width: "30px" }}
+                          className="button-27"
+                          onClick={() => handleSave(employee.id)}
+                        >
+                          <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                            <i className="fas fa-save"></i>
+                          </div>
+                        </button>
+                      ) : (
+                        <button
+                          style={{ width: "30px" }}
+                          className="button-27"
+                          onClick={() => handleEdit(employee.id, employee.lev_status)}
+                        >
+                          <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                            <i className="fas fa-edit"></i>
+                          </div>
+                        </button>
+                      )}
+                      <button
+                        style={{ width: "30px" }}
+                        onClick={() => handleDelete(employee.id)}
+                        className='button-27'  >
+                        <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                          <i className="fas fa-trash"></i>
+                        </div>
+                      </button>
+                    </td>
+                  )}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <LeaveHistory isOpen={modalIsOpen} onRequestClose={closeModal} />
+    </div>
+  );
+};
+
+export default LeaveInfo;
+
+
+
+ 

@@ -1,0 +1,113 @@
+/* styles.css */
+
+.profile {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .profile-section {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  
+  .profile-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .profile-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  .profile-info {
+    flex: 1;
+  }
+  
+  .profile-info label {
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  .profile-info input[type="text"],
+  .profile-info input[type="email"],
+  .profile-info input[type="tel"],
+  .profile-info input[type="file"],
+  .profile-role select,
+  .profile-team select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .profile-role {
+    flex: 1;
+  }
+  
+  .profile-team {
+    flex: 1;
+  }
+  
+  .profile-onboarding {
+    flex: 1;
+  }
+  
+  .profile-onboarding label {
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  .profile-onboarding input[type="checkbox"] {
+    margin-right: 10px;
+  }
+  
+  .onboarding-status {
+    margin-top: 10px;
+  }
+  
+  .onboarding-status span {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .onboarding-scripts {
+    margin-top: 10px;
+  }
+  
+  .profile-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .save-button,
+  .cancel-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .save-button {
+    background-color: #4caf50;
+    color: white;
+  }
+  
+  .cancel-button {
+    background-color: #f44336;
+    color: white;
+  }
+  
